@@ -1,0 +1,15 @@
+{
+  "realm": "handleliste",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": true,
+  "requiredCredentials": [ "password" ],
+  "clients": [
+    {
+      "clientId": "my-client",
+      "enabled": true,
+      "bearerOnly": true,
+      "protocol": "openid-connect"
+    }
+  ]
+}
