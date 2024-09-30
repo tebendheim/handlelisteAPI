@@ -8,10 +8,13 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutHandler
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy
 import org.springframework.stereotype.Service
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -25,7 +28,7 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .oauth2Login{auth -> auth
-
+                .loginPage("/oauth2/authorization/keycloak")
             }
 
             .logout { logout ->
@@ -45,6 +48,7 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
                     .requestMatchers("/hello/**").permitAll()
                     .requestMatchers("/helloauth").authenticated() // Use authenticated instead of fullyAuthenticated if needed
                     .anyRequest().authenticated()
+
             }
 
             .csrf { csrf ->
@@ -52,6 +56,11 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
             }  // Consider re-enabling it with proper configuration later
 
         return http.build()
+    }
+
+    @Bean
+    fun sessionAuthenticationStrategy(): SessionAuthenticationStrategy {
+        return RegisterSessionAuthenticationStrategy(SessionRegistryImpl())
     }
 
     @Bean
@@ -102,9 +111,3 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
             response.sendRedirect(keycloakLogoutUrl)
         }
     }
-
-
-
-
-
-

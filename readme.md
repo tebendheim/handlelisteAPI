@@ -17,7 +17,7 @@ KEYCLOAK_ADMIN_PASSWORD=admin
 #### cd /opt/keycloak/bin
 ### ./kcadm.sh config credentials --server http://localhost:8080/ --realm master --user admin --password admin
 
-# import realm
-# ./kcadm.sh create realms -f /opt/keycloak/realm.json
+## import realm
+#### ./kcadm.sh create realms -f /opt/keycloak/realm.json
 
 

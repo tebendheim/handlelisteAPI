@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.web.bind.annotation.*
 import jakarta.servlet.http.Cookie;
+import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import java.net.URI
 
@@ -35,13 +36,17 @@ class MyController {
         }
     }
 
+//    @GetMapping("/login")
+//    fun login():String{
+//        return "redirect:/oauth2/authorization/keycloak"
+//    }
+//
     @GetMapping("/login")
     fun login(): ResponseEntity<Void> {
-//        val redirectUri =
-//            "http://localhost:8080/realms/handleliste/protocol/openid-connect/auth?response_type=code&client_id=my-client&scope=openid%20profile%20email&state=EV949aBHKUeaReZ5WGerJ5K4iWSlCi3C4VTXTkeENpY%3D&redirect_uri=http://localhost:8081/helloauth"
-//        return ResponseEntity.status(HttpStatus.FOUND).location(URI(redirectUri)).build()
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        // Directly redirect to Spring Security's built-in OAuth2 authorization route
+        return ResponseEntity.status(HttpStatus.FOUND)
+            .header(HttpHeaders.LOCATION, "/oauth2/authorization/keycloak")
+            .build()
     }
 
 }
