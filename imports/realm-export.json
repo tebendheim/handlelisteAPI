@@ -684,7 +684,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "jRC5AoESLPHA7hzdZ2CnzFEEmiVJysc3", // Dette er her jeg setter secret for klient
       "redirectUris": [
         "http://localhost:8081/login/oauth2/code/keycloak"
       ],
@@ -707,7 +707,7 @@
         "client.secret.creation.time": "1726780412",
         "backchannel.logout.session.required": "true",
         "backchannel.logout.url": "http://localhost:8081/sso-logout",
-        "login_theme": "base",
+        "login_theme": "CustomTheme",
         "frontchannel.logout.url": "http://localhost:8081/",
         "post.logout.redirect.uris": "http://localhost:8081##http://localhost:8081/hello",
         "oauth2.device.authorization.grant.enabled": "false",

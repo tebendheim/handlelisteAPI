@@ -23,8 +23,6 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.12") // Check for the latest version
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    implementation("io.ktor:ktor-client-core:2.3.0")
-    implementation("io.ktor:ktor-client-cio:2.3.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -39,6 +37,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.security:spring-security-oauth2-client")
     implementation ("io.github.cdimascio:java-dotenv:5.2.2")
+    implementation("io.ktor:ktor-client-core:2.3.0")
+    implementation("io.ktor:ktor-client-cio:2.3.0") // Use CIO or any other engine you prefer
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
 
 tasks.withType<JavaCompile> {

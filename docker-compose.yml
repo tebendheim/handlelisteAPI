@@ -40,9 +40,17 @@ services:
       - keycloak_network
     volumes:
       - ./imports:/opt/keycloak/imports # Mount your script
+      - ./CustomTheme:/opt/keycloak/themes/CustomTheme
+      - ./init-realm.sh:/opt/keycloak/init-realm.sh
     command:
       - start
-      - --import-realm
+    #entrypoint: ["/opt/keycloak/init-realm.sh"]
+
+    #command:
+    #  - start
+    #  - --import-realm
+    container_name: keycloak
+
 
 
 volumes:
@@ -53,4 +61,5 @@ volumes:
 networks:
   keycloak_network:
     driver: bridge
+    name: keycloak_network
 

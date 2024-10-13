@@ -28,7 +28,7 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .oauth2Login{auth -> auth
-                .loginPage("/oauth2/authorization/keycloak")
+                .defaultSuccessUrl("/helloauth", true) // Set default success URL to helloauth
             }
 
             .logout { logout ->
@@ -47,6 +47,7 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
                     .requestMatchers("/login").permitAll()
                     .requestMatchers("/hello/**").permitAll()
                     .requestMatchers("/helloauth").authenticated() // Use authenticated instead of fullyAuthenticated if needed
+                    .requestMatchers("/userinfo").fullyAuthenticated()
                     .anyRequest().authenticated()
 
             }
@@ -103,6 +104,8 @@ class SecurityConfig(private val logoutHandler: KeycloakLogoutHandler) {
                         "?id_token_hint=$idToken" +
                         "&post_logout_redirect_uri=http://localhost:8081/hello" // Redirect after logout
             } else {
+
+                // @Todo: Må endre til en side som sier at de allerede er logget ut eller direkte redirect til annen side.
                 "http://localhost:8080/realms/handleliste/protocol/openid-connect/logout" +
                         "?post_logout_redirect_uri=http://localhost:8081/hello" // Redirect after logout
             }
